@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Interest Calculator</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <style>
+    ::placeholder {
+      color: rgb(13, 13, 14);
+      opacity: 0.8;
+      font-weight: bold;
+    }
+
+    body {
+      background-image: url('{{ url_for('static', filename='i6.jpg') }}');
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .login {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      color: red;
+      text-align: center;
+      margin-top: 250px;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input {
+      background-color: rgba(219, 228, 236, 0.5);
+      height: 45px;
+      margin-bottom: 30px;
+      padding: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: rgba(2, 255, 2, 0.5);
+      width: 100%;
+      height: 45px;
+      padding: 10px;
+      font-size: 13px;
+      text-shadow: 1px 1px 1px rgb(0, 0, 0);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      color: red;
+      margin-top: 20px;
+      text-align: left;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login">
+    <h1><u><b>INTEREST CALCULATOR</b></u></h1>
+
+    <form name="myform" action="{{ url_for('predict')}}" method="post" onsubmit="return(validateform());">
+      <input type="text" name="Principle Amount" placeholder="Principle Amount" required="required" />
+      <input type="text" name="Rate of Interest" placeholder="Rate of Interest" required="required" />
+      <input type="date" name="start date" placeholder="Start Date" required="required" />
+      <input type="date" name="end date" placeholder="End Date" required="required" />
+      <button type="submit"><b>Calculate</b></button>
+    </form>
+
+    <div>
+      <p>{{ prediction_text1 }}</p>
+      <p>{{ prediction_text2 }}</p>
+      <p>{{ prediction_text3 }}</p>
+      <p>{{ prediction_text4 }}</p>
+      <p>{{ prediction_text5 }}</p>
+      <p>{{ prediction_text6 }}</p>
+      <p>{{ prediction_text7 }}</p>
+      <p>{{ prediction_text8 }}</p>
+      <p>{{ prediction_text9 }}</p>
+    </div>
+  </div>
+</body>
+
+</html>

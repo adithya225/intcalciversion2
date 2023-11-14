@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Interest Calculator</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    ::placeholder {
+      color: rgb(13, 13, 14);
+      opacity: 0.8;
+      font-weight: bold;
+    }
+
+    body {
+      background-image: url('{{ url_for('static', filename='i6.jpg') }}');
+      background-repeat: no-repeat;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .login {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    h1 {
+      color: red;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+   input {
+    background-color: rgba(219, 228, 236, 1.5);
+    height: 45px;
+    width:250px;
+    margin-bottom: 10px; /* Reduce margin */
+    padding: 10px; /* Increase padding */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+button {
+    background-color: rgba(2, 255, 2, 0.5);
+    height: 45px;
+    width:350px;
+    padding: 10px;
+    font-size: 13px;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    margin-top: 10px; /* Adjust margin-top */
+}
+
+
+    p {
+      color: red;
+      margin-top: 20px;
+      text-align: left;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="login">
+          <h1><u><b>INTEREST CALCULATOR</b></u></h1>
+           <form name="myform" action="{{ url_for('predict')}}" method="post" onsubmit="return(validateform());">
+             <div class="row">
+             <div class="col-md-3">
+                  <input type="text" name="Principle Amount" placeholder="Principle Amount" required="required" />
+             </div>
+             <div class="col-md-3">
+                  <input type="text" name="Rate of Interest" placeholder="Rate of Interest" required="required" />
+             </div>
+              <div class="col-md-3">
+                  <input type="date" name="start date" placeholder="Start Date" required="required" />
+              </div>
+               <div class="col-md-3">
+                  <input type="date" name="end date" placeholder="End Date" required="required" />
+               </div>
+             </div>
+             <div class="row">
+               <div class="col-md-4">
+                  <button type="submit"><b>Calculate</b></button>
+               </div>
+               <div class="col-md-4">
+                  <button type="button" onclick="resetForm()"><b>Reset Form</b></button>
+               </div>
+               <div class="col-md-4">
+                  <button type="button" onclick="resetPage()"><b>Reset Page</b></button>
+               </div>
+             </div>
+
+          </form>
+
+          <div>
+            {% if prediction_text %}
+              <p>{{ prediction_text.principle }}</p>
+              <p>{{ prediction_text.rate }}</p>
+              <p>{{ prediction_text.start }}</p>
+              <p>{{ prediction_text.end }}</p>
+              <p>{{ prediction_text.total_days }}</p>
+              <p>{{ prediction_text.s_interest }}</p>
+              <p>{{ prediction_text.final_s_amount }}</p>
+              <p>{{ prediction_text.c_interest }}</p>
+              <p>{{ prediction_text.final_c_amount }}</p>
+            {% endif %}
+
+            <!-- Display history and summation -->
+            <h2>History</h2>
+            {% for entry in history %}
+              <p>Principle: {{ entry.principle }}, Rate: {{ entry.rate }}, Start Date: {{ entry.start_date }}, End Date: {{ entry.end_date }}, Total Days: {{ entry.total_days }}, Compound interest with principle: {{ entry.c_interest }}, Simple interest with principle: {{ entry.s_interest + entry.principle}}</p>
+            {% endfor %}
+            <p>Summation: {{ summation }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    function resetForm() {
+      document.forms['myform'].reset();
+    }
+
+     function resetPage() {
+      window.location.href = '/reset';
+    }
+  </script>
+
+</body>
+
+</html>
